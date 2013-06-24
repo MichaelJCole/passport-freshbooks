@@ -1,10 +1,10 @@
 var vows = require('vows');
 var assert = require('assert');
 var util = require('util');
-var linkedin = require('passport-linkedin');
+var linkedin = require('passport-freshbooks');
 
 
-vows.describe('passport-linkedin').addBatch({
+vows.describe('passport-freshbooks').addBatch({
   
   'module': {
     'should report a version': function (x) {

@@ -1,7 +1,7 @@
 var vows = require('vows');
 var assert = require('assert');
 var util = require('util');
-var LinkedInStrategy = require('passport-linkedin/strategy');
+var LinkedInStrategy = require('passport-freshbooks/strategy');
 
 
 vows.describe('LinkedInStrategy').addBatch({

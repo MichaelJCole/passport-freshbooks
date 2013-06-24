@@ -2,7 +2,7 @@ var express = require('express')
   , http = require('http')
   , passport = require('passport')
   , util = require('util')
-  , LinkedInStrategy = require('passport-linkedin').Strategy;
+  , Strategy = require('../../../passport-freshbooks').Strategy;
 
 var app = express();
 
@@ -22,15 +22,15 @@ app.use(passport.session());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
-var LINKEDIN_API_KEY = "--insert-linkedin-api-key-here--";
-var LINKEDIN_SECRET_KEY = "--insert-linkedin-secret-key-here--";
+var AUTH_TOKEN = "32c6157497e68973987c4ce39695e84f";
+var OAUTH_SECRET = "wvyRBZNB8aG8RjyYhkmwkCUi3v8YxSGHe";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete LinkedIn profile is
+//   have a database of user records, the complete profile is
 //   serialized and deserialized.
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -41,21 +41,21 @@ passport.deserializeUser(function(obj, done) {
 });
 
 
-// Use the LinkedInStrategy within Passport.
+// Use the Strategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
-//   credentials (in this case, a token, tokenSecret, and LinkedIn profile), and
+//   credentials (in this case, a token, tokenSecret, and profile), and
 //   invoke a callback with a user object.
-passport.use(new LinkedInStrategy({
-    consumerKey: LINKEDIN_API_KEY,
-    consumerSecret: LINKEDIN_SECRET_KEY,
-    callbackURL: "http://127.0.0.1:3000/auth/linkedin/callback"
+passport.use(new Strategy({
+    consumerKey: AUTH_TOKEN,
+    consumerSecret: OAUTH_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/freshbooks/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      // To keep the example simple, the user's LinkedIn profile is returned to
+      // To keep the example simple, the user's profile is returned to
       // represent the logged-in user.  In a typical application, you would want
-      // to associate the LinkedIn account with a user record in your database,
+      // to associate the account with a user record in your database,
       // and return that user instead.
       return done(null, profile);
     });
@@ -74,25 +74,25 @@ app.get('/login', function(req, res){
   res.render('login', { user: req.user });
 });
 
-// GET /auth/linkedin
+// GET /auth/freshbooks
 //   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in LinkedIn authentication will involve
-//   redirecting the user to linkedin.com.  After authorization, LinkedIn will
-//   redirect the user back to this application at /auth/linkedin/callback
-app.get('/auth/linkedin',
-  passport.authenticate('linkedin'),
+//   request.  The first step in authentication will involve
+//   redirecting the user to freshbooks.com.  After authorization, this will
+//   redirect the user back to this application at /auth/freshbooks/callback
+app.get('/auth/freshbooks',
+  passport.authenticate('freshbooks'),
   function(req, res){
-    // The request will be redirected to LinkedIn for authentication, so this
+    // The request will be redirected to Freshbooks for authentication, so this
     // function will not be called.
   });
 
-// GET /auth/linkedin/callback
+// GET /auth/freshbooks/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/linkedin/callback',
-  passport.authenticate('linkedin', { failureRedirect: '/login' }),
+app.get('/auth/freshbooks/callback',
+  passport.authenticate('freshbooks', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
