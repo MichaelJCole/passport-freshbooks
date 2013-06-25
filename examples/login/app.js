@@ -22,6 +22,7 @@ app.use(passport.session());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
+var SERVER_NAME = "michaeljcole.freshbooks.com";
 var AUTH_TOKEN = "32c6157497e68973987c4ce39695e84f";
 var OAUTH_SECRET = "wvyRBZNB8aG8RjyYhkmwkCUi3v8YxSGHe";
 
@@ -46,6 +47,7 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, a token, tokenSecret, and profile), and
 //   invoke a callback with a user object.
 passport.use(new Strategy({
+    serverName: SERVER_NAME,
     consumerKey: AUTH_TOKEN,
     consumerSecret: OAUTH_SECRET,
     callbackURL: "http://127.0.0.1:3000/auth/freshbooks/callback"
@@ -81,10 +83,10 @@ app.get('/login', function(req, res){
 //   redirect the user back to this application at /auth/freshbooks/callback
 app.get('/auth/freshbooks',
   passport.authenticate('freshbooks'),
-  function(req, res){
-    // The request will be redirected to Freshbooks for authentication, so this
-    // function will not be called.
-  });
+    function(req, res){
+      // The request will be redirected to Freshbooks for authentication, so this
+      // function will not be called.
+    });
 
 // GET /auth/freshbooks/callback
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -93,9 +95,9 @@ app.get('/auth/freshbooks',
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/freshbooks/callback',
   passport.authenticate('freshbooks', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+    function(req, res) {
+      res.redirect('/');
+    });
 
 app.get('/logout', function(req, res){
   req.logout();
