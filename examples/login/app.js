@@ -7,7 +7,7 @@ var express = require('express')
 var app = express();
 
 // configure Express
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.logger());
@@ -22,9 +22,10 @@ app.use(passport.session());
 app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 
-var SERVER_NAME = "michaeljcole.freshbooks.com";
-var AUTH_TOKEN = "32c6157497e68973987c4ce39695e84f";
+var FRESHBOOKS_SUBDOMAIN = "michaeljcole";
 var OAUTH_SECRET = "wvyRBZNB8aG8RjyYhkmwkCUi3v8YxSGHe";
+
+var MY_HOSTNAME = "localhost";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -47,10 +48,10 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, a token, tokenSecret, and profile), and
 //   invoke a callback with a user object.
 passport.use(new Strategy({
-    serverName: SERVER_NAME,
-    consumerKey: AUTH_TOKEN,
+    subdomain: FRESHBOOKS_SUBDOMAIN,
+    consumerKey: FRESHBOOKS_SUBDOMAIN,
     consumerSecret: OAUTH_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/freshbooks/callback"
+    callbackURL: "http://" + MY_HOSTNAME + ":" + ( process.env.PORT || 3001 ) + "/auth/freshbooks/callback"
   },
   function(token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
