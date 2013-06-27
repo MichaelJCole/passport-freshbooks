@@ -19,8 +19,8 @@
   },
   "author": {
     "name": "Michael Cole",
-    "email": "michaelcole@michaelcole.com",
-    "url": "http://www.michaelcole.com/"
+    "email": "npm@michaelcole.com",
+    "url": "http://www.powma.com/"
   },
   "licenses": [
     {
@@ -33,12 +33,6 @@
     "pkginfo": "0.2.x",
     "passport-oauth": "0.1.x",
     "xml2json": "~0.3.2"
-  },
-  "devDependencies": {
-    "vows": "0.6.x"
-  },
-  "scripts": {
-    "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
   },
   "engines": {
     "node": ">= 0.4.0"
