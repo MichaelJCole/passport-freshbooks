@@ -21,14 +21,22 @@ LinkedIn and Freshbooks both use oAuth1.0a so it seemed like a good place to sta
 
 #### Configure Strategy
 
+For a working example, see ./examples/login/app.js.
+
 The Freshbooks authentication strategy authenticates users using a Freshbooks
 account and OAuth tokens.  The strategy requires a `verify` callback, which
 accepts these credentials and calls `done` providing a user, as well as
 `options` specifying a consumer key, consumer secret, and callback URL.
 
     passport.use(new FreshbooksStrategy({
-        consumerKey: LINKEDIN_API_KEY,
-        consumerSecret: LINKEDIN_SECRET_KEY,
+
+        // This is your Freshbooks subdomain.  e.g. `example` in `http://example.freshbooks.com`
+        consumerKey: SUBDOMAIN,
+
+        // This is your OAuth Secret from My Account -> Freshbooks API.
+        consumerSecret: FRESHBOOKS_OAUTH_SECRET,
+
+        // This callback needs to be the same servername as the app.  localhost != 127.0.0.1
         callbackURL: "http://127.0.0.1:3000/auth/freshbooks/callback"
       },
       function(token, tokenSecret, profile, done) {
@@ -56,48 +64,24 @@ application:
         res.redirect('/');
       });
 
-#### Extended Permissions
-
-If you need extended permissions from the user, the permissions can be requested
-via the `scope` option to `passport.authenticate()`.
-
-For example, this authorization requests permission to the user's basic profile
-and email address:
-
-    app.get('/auth/freshbooks',
-      passport.authenticate('freshbooks', { scope: ['r_basicprofile', 'r_emailaddress'] }));
-
 #### Profile Fields
 
-The Freshbooks profile is very rich, and may contain a lot of information.  The
-strategy can be configured with a `profileFields` parameter which specifies a
-list of fields your application needs.  For example, to fetch the user's ID, name,
-email address, and headline, configure strategy like this.
+The Freshbooks profile contains a lot of information.
 
-    passport.use(new FreshbooksStrategy({
-        // clientID, clientSecret and callbackURL
-        profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline']
-      },
-      // verify callback
-    ));
+See ./examples/login/views/account.ejs and ./examples/login/app.js for more info
 
 ## Examples
 
 For a complete, working example, refer to the [login example](https://github.com/MichaelJCole/passport-freshbooks/tree/master/examples/login).
 
-## Tests
-
-    $ npm install --dev
-    $ make test
-
-[![Build Status](https://secure.travis-ci.org/MichaelJCole/passport-freshbooks.png)](http://travis-ci.org/MichaelJCole/passport-freshbooks)
 
 ## Credits
 
-  - [Jared Hanson](http://github.com/jaredhanson)
+  - [Jared Hanson](http://github.com/jaredhanson) - for [Passport](http://passportjs.org/) and for [passport-linkedin](https://github.com/jaredhanson/passport-linkedin) upon which this module was based.
+  - [Michael Cole](https://github.com/MichaelJCole) - for converting passport-linkedin to work with the [Freshbooks API](http://developers.freshbooks.com/)
 
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2011-2013 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Copyright (c) 2013 Michael Cole <[http://powma.com/](http://powma.com/)>

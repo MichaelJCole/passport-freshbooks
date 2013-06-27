@@ -2,7 +2,14 @@
   "name": "passport-freshbooks",
   "version": "0.1.3",
   "description": "Freshbooks authentication strategy for Passport.",
-  "keywords": ["passport", "freshbooks", "auth", "authn", "authentication", "identity"],
+  "keywords": [
+    "passport",
+    "freshbooks",
+    "auth",
+    "authn",
+    "authentication",
+    "identity"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/MichaelJCole/passport-freshbooks.git"
@@ -15,14 +22,17 @@
     "email": "michaelcole@michaelcole.com",
     "url": "http://www.michaelcole.com/"
   },
-  "licenses": [ {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/MIT" 
-  } ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
   "main": "./lib/passport-freshbooks",
   "dependencies": {
     "pkginfo": "0.2.x",
-    "passport-oauth": "0.1.x"
+    "passport-oauth": "0.1.x",
+    "xml2json": "~0.3.2"
   },
   "devDependencies": {
     "vows": "0.6.x"
@@ -30,5 +40,7 @@
   "scripts": {
     "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
   },
-  "engines": { "node": ">= 0.4.0" }
+  "engines": {
+    "node": ">= 0.4.0"
+  }
 }
