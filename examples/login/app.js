@@ -71,6 +71,7 @@ passport.use(new Strategy({
     consumerSecret: OAUTH_SECRET,
     callbackURL: "http://" + MY_HOSTNAME + ":" + ( process.env.PORT || MY_PORT ) + "/auth/freshbooks/callback"
   },
+  // this function is a way to prohibit `valid` OAuth users from logging in.  Here lay the ban-hammer.
   function(token, tokenSecret, profile, done) {
     return done(null, profile);
   }
