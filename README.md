@@ -9,7 +9,7 @@ unobtrusively integrated into any application or framework that supports
 [Connect](http://www.senchalabs.org/connect/)-style middleware, including
 [Express](http://expressjs.com/).
 
-This module is a straight copy/paste from Jared Hanson's excellent [Passport LinkedIn](https://github.com/jaredhanson/passport-linkedin) module.
+This module is based on Jared Hanson's excellent [Passport LinkedIn](https://github.com/jaredhanson/passport-linkedin) module.
 
 LinkedIn and Freshbooks both use oAuth1.0a so it seemed like a good place to start.
 
