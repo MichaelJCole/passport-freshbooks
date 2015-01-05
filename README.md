@@ -31,6 +31,7 @@ accepts these credentials and calls `done` providing a user, as well as
     passport.use(new FreshbooksStrategy({
 
         // This is your Freshbooks subdomain.  e.g. `example` in `http://example.freshbooks.com`
+        subdomain: SUBDOMAIN,
         consumerKey: SUBDOMAIN,
 
         // This is your OAuth Secret from My Account -> Freshbooks API.
